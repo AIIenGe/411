@@ -1,9 +1,12 @@
 package controllers;
 
 
+import Model.Coordinate;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import play.data.Form;
+import play.data.FormFactory;
 import play.mvc.*;
 
 import views.html.*;
@@ -21,25 +24,29 @@ import java.util.ArrayList;
 import com.google.gson.*;
 import com.google.gson.Gson;
 
+import javax.inject.Inject;
+
 /**
  * This controller contains an action to handle HTTP requests
  * to the application's home page.
  */
 public class HomeController extends Controller {
-
-    /**
-     * An action that renders an HTML page with a welcome message.
-     * The configuration in the <code>routes</code> file means that
-     * this method will be called when the application receives a
-     * <code>GET</code> request with a path of <code>/</code>.
-     */
+    @Inject
+    private FormFactory formFactory;
+    private Coordinate coordinate;
     public Result index() {
         return ok(index.render("Your new application is ready."));
     }
 
+    public Result addLocation (Http.Request request) {
+        Form<Coordinate> coordinateForm = formFactory.form(Coordinate.class).bindFromRequest(request);
+        coordinate = coordinateForm.get();
+        return redirect(routes.HomeController.returnCoordinates());
+    }
+
     public Result returnCoordinates() throws MalformedURLException, ProtocolException, IOException {
         ArrayList<JsonElement> coordinateList = new ArrayList<>();
-        URL url = new URL("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=35.2&longitude=139.83&maxradiuskm=100&minmagnitude=5");
+        URL url = new URL("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=" + coordinate.getLatitude() + "&longitude=" + coordinate.getLongitude() + "&maxradiuskm=100&minmagnitude=5");
 
         //http://chillyfacts.com/java-send-http-getpost-request-and-read-json-response
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
