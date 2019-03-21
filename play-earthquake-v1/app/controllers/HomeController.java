@@ -34,6 +34,9 @@ public class HomeController extends Controller {
     @Inject
     private FormFactory formFactory;
     private Coordinate coordinate;
+
+    //branch text
+    
     public Result index() {
         return ok(index.render("Your new application is ready."));
     }
