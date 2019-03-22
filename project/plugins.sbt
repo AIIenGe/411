@@ -7,3 +7,4 @@ addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.7.0")
 // basis using disablePlugins(PlayEnhancer) in your build.sbt
 addSbtPlugin("com.typesafe.sbt" % "sbt-play-enhancer" % "1.2.2")
 
+addSbtPlugin("com.heroku" % "sbt-heroku" % "2.0.0")

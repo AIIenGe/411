@@ -29,3 +29,5 @@ libraryDependencies += "org.awaitility" % "awaitility" % "3.1.3" % Test
 
 // Make verbose tests
 testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))
+
+herokuAppName in Compile := "glacial-mesa-23065"
