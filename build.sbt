@@ -2,8 +2,6 @@ name := """play-earthquake-v1"""
 
 version := "1.0-SNAPSHOT"
 
-lazy val root = (project in file(".")).enablePlugins(PlayJava)
-
 scalaVersion := "2.12.8"
 
 javacOptions ++= Seq(
@@ -31,3 +29,6 @@ libraryDependencies += "org.awaitility" % "awaitility" % "3.1.3" % Test
 testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))
 
 herokuAppName in Compile := "glacial-mesa-23065"
+
+lazy val root = (project in file(".")).enablePlugins(PlayJava, SbtWeb)
+
