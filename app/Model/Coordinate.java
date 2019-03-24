@@ -1,8 +1,8 @@
 package Model;
 
 public class Coordinate {
-    private double latitude;
-    private double longitude;
+    public double latitude;
+    public double longitude;
 
     public Coordinate(){
 
