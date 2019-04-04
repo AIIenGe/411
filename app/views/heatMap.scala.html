@@ -1,13 +1,15 @@
+@import Model.Coordinate
+@(Coordinate: Coordinate)
 <!DOCTYPE html>
 <html>
-<head>
-    <title></title>
-    <meta charset="utf-8" />
-    <script type='text/javascript'>
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <script type='text/javascript'>
     var usgsEarthquakeUrl = 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson';
     function GetMap() {
         var map = new Microsoft.Maps.Map('#myMap', {
-            center: new Microsoft.Maps.Location(34, -118),
+            center: new Microsoft.Maps.Location(@Coordinate.latitude, @Coordinate.longitude),
             mapTypeId: Microsoft.Maps.MapTypeId.aerial,
             zoom: 7
         });
@@ -24,9 +26,9 @@
         });
     }
     </script>
-    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AktwjWKLr_80k1fFaDgor86KDa5m0zv7sIFJnOy8d2H50CJ8tBWG-A4eKSWEMaX8' async defer></script>
-</head>
-<body>
-    <div id="myMap" style="position:relative;width:800px;height:600px;"></div>
-</body>
+        <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AktwjWKLr_80k1fFaDgor86KDa5m0zv7sIFJnOy8d2H50CJ8tBWG-A4eKSWEMaX8' async defer></script>
+    </head>
+    <body>
+        <div id="myMap" style="position:relative;width:800px;height:600px;"></div>
+    </body>
 </html>
