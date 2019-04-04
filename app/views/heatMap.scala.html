@@ -2,46 +2,30 @@
 @(Coordinate: Coordinate)
 <!DOCTYPE html>
 <html>
-    console.log(Coordinate);
     <head>
         <title></title>
         <meta charset="utf-8" />
-        <script type="text/javascript">
-            if(@Coordinate.minmagnitude.equals("")){
-                console.log("empty");
-            }
-    </script>
         <script type='text/javascript'>
-    var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2014-01-02';
-
-    function GetMap() {
-        var map = new Microsoft.Maps.Map('#myMap', {
-            center: new Microsoft.Maps.Location(@Coordinate.latitude, @Coordinate.longitude),
-            mapTypeId: Microsoft.Maps.MapTypeId.canvasLight,
-            zoom: 7
-        });
-        //Load the GeoJSON and HeatMap modules.
-        Microsoft.Maps.loadModule(['Microsoft.Maps.GeoJson', 'Microsoft.Maps.HeatMap'], function () {
-            Microsoft.Maps.GeoJson.readFromUrl(usgsEarthquakeUrl, function (shapes) {
-                var heatmap = new Microsoft.Maps.HeatMapLayer(shapes, {
-                    radius: 20000,
-                    unit: 'meters',
-                    opacity: 1.0,
-                    intensity: 1.0,
-                    colorGradiant:{
-                        '0.00': 'rgb(255,0,255)', // Magenta
-                        '0.25': 'rgb(0,0,255)', // Blue
-                        '0.50': 'rgb(0,255,0)', // Green
-                        '0.75': 'rgb(255,255,0)', // Yellow
-                        '1.00': 'rgb(255,0,0)' // Red
-                    }
-
-                });
-                map.layers.insert(heatmap);
-            });
-        });
-    }
-    </script>
+                var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=' + @Coordinate.latitude + '&longitude=' + @Coordinate.longitude + '&maxradiuskm=100&minmagnitude=5';
+                function GetMap() {
+                    var map = new Microsoft.Maps.Map('#myMap', {
+                        center: new Microsoft.Maps.Location(@Coordinate.latitude, @Coordinate.longitude),
+                        mapTypeId: Microsoft.Maps.MapTypeId.canvasLight,
+                        zoom: 9
+                    });
+                    //Load the GeoJSON and HeatMap modules.
+                    Microsoft.Maps.loadModule(['Microsoft.Maps.GeoJson', 'Microsoft.Maps.HeatMap'], function () {
+                        Microsoft.Maps.GeoJson.readFromUrl(usgsEarthquakeUrl, function (shapes) {
+                            var heatmap = new Microsoft.Maps.HeatMapLayer(shapes, {
+                                radius: 10000,
+                                unit: 'meters',
+                                opacity: 0.8
+                            });
+                            map.layers.insert(heatmap);
+                        });
+                    });
+                }
+        </script>
         <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AktwjWKLr_80k1fFaDgor86KDa5m0zv7sIFJnOy8d2H50CJ8tBWG-A4eKSWEMaX8' async defer></script>
     </head>
     <body>
