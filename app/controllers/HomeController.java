@@ -41,6 +41,7 @@ public class HomeController extends Controller {
     public Result addLocation (Http.Request request) {
         Form<Coordinate> coordinateForm = formFactory.form(Coordinate.class).bindFromRequest(request);
         coordinate = coordinateForm.get();
+        System.out.println(coordinate.maxmagnitude);
         return redirect(routes.HomeController.returnHeatmap());
     }
 
