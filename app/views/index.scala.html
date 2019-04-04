@@ -12,6 +12,7 @@
 @main("Earthquake App") {
     <html>
     <head>
+        <!--
         <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
             * {
@@ -36,7 +37,7 @@
     </head>
         <body>
 
-            <form action="@routes.HomeController.addLocation()" method="POST">
+
 
             <div class="row">
                 <div class="one-column-three column">
@@ -89,6 +90,8 @@
                         </li></ul><div class="region-description"><h3>Worldwide</h3></div>
                 </div>
             </div>
+        --->
+        <form action="@routes.HomeController.addLocation()" method="POST">
                 <input type="text" name="latitude"  value="19.8968"/>
                 <input type="text" name="longitude" value="-155.5828"/>
                 <button>Add Coordinate</button>
