@@ -2,11 +2,13 @@ package controllers;
 
 
 import Model.Coordinate;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import play.data.Form;
 import play.data.FormFactory;
+import play.libs.Json;
 import play.mvc.*;
 
 import views.html.*;
@@ -26,15 +28,10 @@ import com.google.gson.Gson;
 
 import javax.inject.Inject;
 
-/**
- * This controller contains an action to handle HTTP requests
- * to the application's home page.
- */
 public class HomeController extends Controller {
     @Inject
     private FormFactory formFactory;
     private Coordinate coordinate;
-    
     //merge element
 
     public Result index() {
@@ -44,10 +41,14 @@ public class HomeController extends Controller {
     public Result addLocation (Http.Request request) {
         Form<Coordinate> coordinateForm = formFactory.form(Coordinate.class).bindFromRequest(request);
         coordinate = coordinateForm.get();
-        return redirect(routes.HomeController.returnCoordinates());
+        return redirect(routes.HomeController.returnHeatmap());
     }
 
-    public Result returnCoordinates() throws MalformedURLException, ProtocolException, IOException {
+    public Result returnHeatmap() {
+        return ok(heatMap.render(coordinate));
+    }
+
+    /*public Result returnCoordinates() throws MalformedURLException, ProtocolException, IOException {
         ArrayList<JsonElement> coordinateList = new ArrayList<>();
         URL url = new URL("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=" + coordinate.getLatitude() + "&longitude=" + coordinate.getLongitude() + "&maxradiuskm=100&minmagnitude=5");
 
@@ -91,5 +92,5 @@ public class HomeController extends Controller {
             //merge test
         }
         return ok(coordinateList.toString());
-    }
+    }*/
 }
