@@ -96,7 +96,9 @@
                 <input type="text" name="longitude" value="-155.5828"/>
                 <button>Add Coordinate</button>
             </form>
-        <input type="button" value="History" onClick="location.href='http://localhost:9000/history'">
+        <input type="button" value="History" onClick="@routes.HomeController.getHistory()">
         </body>
     </html>
 }
+
+@*<input type="button" value="History" onClick="location.href='http://localhost:9000/history'">*@
