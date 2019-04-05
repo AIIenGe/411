@@ -43,7 +43,7 @@ GET     /               controllers.HomeController.index</code></pre>
 }</code></pre>
 
             <p>
-                An action method handles the incoming HTTP request, and returns the HTTP result to send back to the web client.
+                An action method handles the incoming HTTP request, and returns the HTTP history to send back to the web client.
                 Here we send a <code>200 OK</code> response, using a template to fill its content.
             </p>
 
@@ -75,7 +75,7 @@ GET     /               controllers.HomeController.index</code></pre>
 
             <h2>Async Controller</h2>
 
-            Now that you've seen how Play renders a page, take a look at <code>AsyncController.java</code>, which shows how to do asynchronous programming when handling a request.  The code is almost exactly the same as <code>HomeController.java</code>, but instead of returning <code>Result</code>, the action returns <code>CompletionStage&lt;Result&gt;</code> to Play.  When the execution completes, Play can use a thread to render the result without blocking the thread in the mean time.
+            Now that you've seen how Play renders a page, take a look at <code>AsyncController.java</code>, which shows how to do asynchronous programming when handling a request.  The code is almost exactly the same as <code>HomeController.java</code>, but instead of returning <code>Result</code>, the action returns <code>CompletionStage&lt;Result&gt;</code> to Play.  When the execution completes, Play can use a thread to render the history without blocking the thread in the mean time.
 
             <p>
                 <a href="@routes.AsyncController.message">Click here for the AsyncController action!</a>

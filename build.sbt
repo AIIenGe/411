@@ -1,6 +1,9 @@
+
 name := """play-earthquake-v1"""
 
 version := "1.0-SNAPSHOT"
+
+lazy val root = (project in file(".")).enablePlugins(PlayJava, PlayEbean, SbtWeb)
 
 scalaVersion := "2.12.8"
 
@@ -14,10 +17,10 @@ javacOptions ++= Seq(
 
 crossScalaVersions := Seq("2.11.12", "2.12.7")
 
-libraryDependencies += guice
-
+libraryDependencies ++= Seq(guice, evolutions, javaJdbc)
+libraryDependencies += "com.h2database" % "h2" % "1.4.197"
 libraryDependencies += "com.google.code.gson" % "gson" % "2.8.5"
-
+libraryDependencies += "org.postgresql" % "postgresql" % "9.4-1201-jdbc41"
 // Test Database
 libraryDependencies += "com.h2database" % "h2" % "1.4.197"
 
@@ -29,6 +32,4 @@ libraryDependencies += "org.awaitility" % "awaitility" % "3.1.3" % Test
 testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))
 
 herokuAppName in Compile := "glacial-mesa-23065"
-
-lazy val root = (project in file(".")).enablePlugins(PlayJava, SbtWeb)
 

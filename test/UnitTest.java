@@ -41,7 +41,7 @@ public class UnitTest {
             final AsyncController controller = new AsyncController(actorSystem, ec);
             final CompletionStage<Result> future = controller.message();
 
-            // Block until the result is completed
+            // Block until the history is completed
             await().untilAsserted(() ->
                     assertThat(future.toCompletableFuture())
                         .isCompletedWithValueMatching(result -> contentAsString(result).equals("Hi!"))

@@ -1,10 +1,11 @@
 package controllers;
 
-
+import io.ebean.Model;
 import Model.Coordinate;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import play.data.*;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.*;
@@ -19,8 +20,9 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.*;
 
-
+import static play.libs.Json.toJson;
 import com.google.gson.*;
 import com.google.gson.Gson;
 
@@ -31,7 +33,10 @@ import javax.inject.Inject;
  * to the application's home page.
  */
 public class HomeController extends Controller {
+    //private final Form<Coordinate> theCoordinateForm;
+
     @Inject
+    //public HomeController(FormFactory formFactory){ this.theCoordinateForm = formFactory.form(Coordinate.class);}
     private FormFactory formFactory;
     private Coordinate coordinate;
     
@@ -42,8 +47,13 @@ public class HomeController extends Controller {
     }
 
     public Result addLocation (Http.Request request) {
+        //final Form<Coordinate> theBoundCoordinateForm = theCoordinateForm.bindFromRequest(request);
+        //Coordinate coordinate = theBoundCoordinateForm.get();
+        //coordinate.save();
+        //return redirect(routes.HomeController.returnCoordinates());
         Form<Coordinate> coordinateForm = formFactory.form(Coordinate.class).bindFromRequest(request);
         coordinate = coordinateForm.get();
+        coordinate.save();
         return redirect(routes.HomeController.returnCoordinates());
     }
 
@@ -91,5 +101,10 @@ public class HomeController extends Controller {
             //merge test
         }
         return ok(coordinateList.toString());
+    }
+
+    public Result getHistory(){
+        List<Coordinate> coordinates = Coordinate.find.all();
+        return ok(toJson(coordinates));
     }
 }
