@@ -6,26 +6,26 @@
         <title></title>
         <meta charset="utf-8" />
         <script type='text/javascript'>
-    var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=' + @Coordinate.latitude + '&longitude=' + @Coordinate.longitude + '&maxradiuskm=100&minmagnitude=5';
-    function GetMap() {
-        var map = new Microsoft.Maps.Map('#myMap', {
-            center: new Microsoft.Maps.Location(@Coordinate.latitude, @Coordinate.longitude),
-            mapTypeId: Microsoft.Maps.MapTypeId.aerial,
-            zoom: 9
-        });
-        //Load the GeoJSON and HeatMap modules.
-        Microsoft.Maps.loadModule(['Microsoft.Maps.GeoJson', 'Microsoft.Maps.HeatMap'], function () {
-            Microsoft.Maps.GeoJson.readFromUrl(usgsEarthquakeUrl, function (shapes) {
-                var heatmap = new Microsoft.Maps.HeatMapLayer(shapes, {
-                    radius: 10000,
-                    unit: 'meters',
-                    opacity: 0.8
-                });
-                map.layers.insert(heatmap);
-            });
-        });
-    }
-    </script>
+                var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=' + @Coordinate.latitude + '&longitude=' + @Coordinate.longitude + '&maxradiuskm=100&minmagnitude=5';
+                function GetMap() {
+                    var map = new Microsoft.Maps.Map('#myMap', {
+                        center: new Microsoft.Maps.Location(@Coordinate.latitude, @Coordinate.longitude),
+                        mapTypeId: Microsoft.Maps.MapTypeId.canvasLight,
+                        zoom: 9
+                    });
+                    //Load the GeoJSON and HeatMap modules.
+                    Microsoft.Maps.loadModule(['Microsoft.Maps.GeoJson', 'Microsoft.Maps.HeatMap'], function () {
+                        Microsoft.Maps.GeoJson.readFromUrl(usgsEarthquakeUrl, function (shapes) {
+                            var heatmap = new Microsoft.Maps.HeatMapLayer(shapes, {
+                                radius: 10000,
+                                unit: 'meters',
+                                opacity: 0.8
+                            });
+                            map.layers.insert(heatmap);
+                        });
+                    });
+                }
+        </script>
         <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AktwjWKLr_80k1fFaDgor86KDa5m0zv7sIFJnOy8d2H50CJ8tBWG-A4eKSWEMaX8' async defer></script>
     </head>
     <body>

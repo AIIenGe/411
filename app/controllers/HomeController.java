@@ -10,7 +10,7 @@ import play.data.Form;
 import play.data.FormFactory;
 import play.libs.Json;
 import play.mvc.*;
-
+import io.ebean.Model;
 import views.html.*;
 
 import java.io.BufferedReader;
@@ -21,8 +21,10 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
-
+import static play.libs.Json.toJson;
+import play.data.*;
 import com.google.gson.*;
 import com.google.gson.Gson;
 
@@ -41,11 +43,17 @@ public class HomeController extends Controller {
     public Result addLocation (Http.Request request) {
         Form<Coordinate> coordinateForm = formFactory.form(Coordinate.class).bindFromRequest(request);
         coordinate = coordinateForm.get();
+        coordinate.save();
         return redirect(routes.HomeController.returnHeatmap());
     }
 
     public Result returnHeatmap() {
         return ok(heatMap.render(coordinate));
+    }
+
+    public Result getHistory(){
+        List<Coordinate> coordinates = Coordinate.find.all();
+        return ok(toJson(coordinates));
     }
 
     /*public Result returnCoordinates() throws MalformedURLException, ProtocolException, IOException {
