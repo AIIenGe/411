@@ -1,31 +1,32 @@
 package Model;
 
-public class Coordinate {
+import javax.persistence.*;
+import io.ebean.*;
+
+@Entity
+public class Coordinate extends Model{
+    @Id
+    private long id;
     public double latitude;
     public double longitude;
-    public String maxmagnitude;
 
     public Coordinate(){
 
     }
 
-    public Coordinate(double latitude, double longitude, String maxmagnitude){
+    public Coordinate(long id, double latitude, double longitude){
+        this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.maxmagnitude = maxmagnitude;
     }
 
     public double getLatitude(){
         return latitude;
     }
-
+    public long getId(){ return id; }
     public double getLongitude(){
         return longitude;
     }
 
-    public String minmagnitude(){
-        return maxmagnitude;
-    }
-
-
+    public static final Finder<Long, Coordinate> find = new Finder<>(Coordinate.class);
 }

@@ -15,3 +15,5 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 GET     /heatmap                controllers.HomeController.returnHeatmap()
 +nocsrf
 POST    /addLocation                controllers.HomeController.addLocation(request: Request)
+
+GET     /history                    controllers.HomeController.getHistory()

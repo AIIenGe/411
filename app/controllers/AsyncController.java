@@ -29,15 +29,15 @@ public class AsyncController extends Controller {
     /**
      * @param actorSystem We need the {@link ActorSystem}'s
      * {@link Scheduler} to run code after a delay.
-     * @param exec We need a Java {@link Executor} to apply the result
+     * @param exec We need a Java {@link Executor} to apply the history
      * of the {@link CompletableFuture} and a Scala
      * {@link ExecutionContext} so we can use the Akka {@link Scheduler}.
      * An {@link ExecutionContextExecutor} implements both interfaces.
      */
     @Inject
     public AsyncController(ActorSystem actorSystem, ExecutionContextExecutor exec) {
-      this.actorSystem = actorSystem;
-      this.exec = exec;
+        this.actorSystem = actorSystem;
+        this.exec = exec;
     }
 
     /**
@@ -55,9 +55,9 @@ public class AsyncController extends Controller {
     private CompletionStage<String> getFutureMessage(long time, TimeUnit timeUnit) {
         CompletableFuture<String> future = new CompletableFuture<>();
         actorSystem.scheduler().scheduleOnce(
-            Duration.create(time, timeUnit),
-            () -> future.complete("Hi!"),
-            exec
+                Duration.create(time, timeUnit),
+                () -> future.complete("Hi!"),
+                exec
         );
         return future;
     }

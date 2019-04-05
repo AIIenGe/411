@@ -20,12 +20,12 @@ public class CountController extends Controller {
 
     @Inject
     public CountController(Counter counter) {
-       this.counter = counter;
+        this.counter = counter;
     }
 
     /**
      * An action that responds with the {@link Counter}'s current
-     * count. The result is plain text. This action is mapped to
+     * count. The history is plain text. This action is mapped to
      * <code>GET</code> requests with a path of <code>/count</code>
      * requests by an entry in the <code>routes</code> config file.
      */
