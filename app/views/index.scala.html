@@ -10,107 +10,24 @@
  * argument is an `Html` object containing the body of the page.
  *@
 @main("Earthquake App") {
-    <html>
-        <!--
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-            * {
-                box-sizing: border-box;
-            }
+    <div class="header">
+        <h1>Welcome to our <i><u>Earthquake</u></i> Application</h1>
+        <h2><i>By: Allen Ge, Geon Wook, Jonathan Chu, and Nick Witmer</i></h2>
+        <br><br>
+    </div>
 
-            /* Create three equal columns that floats next to each other */
-            .column {
-                float: left;
-                width: 33.33%;
-                padding: 10px;
-                height: 300px; /* Should be removed. Only for demonstration */
-            }
+    <div class="main">
+        <p>Below, you can choose a latitude and longitude in order to see a heatmap representation of all earthquakes in that specified area. Currently, the default values are coordinates relating to Hawaii. Try it out by clicking "Add Coordinate".</p>
+        <form action="@routes.HomeController.addLocation()" method="POST">
+            <input type="text" name="latitude"  value="19.8968"/>
+            <input type="text" name="longitude" value="-155.5828"/>
+            <button>Add Coordinate</button>
+        </form>
 
-            /* Clear floats after the columns */
-            .row:after {
-                content: "";
-                display: table;
-                clear: both;
-            }
-    </style>
-    </head>
-        <body>
-
-
-
-            <div class="row">
-                <div class="one-column-three column">
-                    <h3 id="magnitude" class="label">Magnitude</h3>
-                    <ul class="no-style basicmagnitude-list"><li><input id="two-five-plus" type="radio" name="basicmagnitude" value="2.5" checked="checked" aria-labelledby="two-five-plus"><label for="two-five-plus" class="label-checkbox">2.5+</label></li><li><input id="four-five-plus" type="radio" name="basicmagnitude" value="4.5" aria-labelledby="four-five-plus"><label for="four-five-plus" class="label-checkbox">4.5+</label></li><li><input id="custom-mag" type="radio" name="basicmagnitude" value="" aria-labelledby="custom-mag"><label for="custom-mag" class="label-checkbox">Custom</label></li></ul>
-                    <ul class="vertical no-style">
-                        <li>
-                            <label for="minmagnitude" class="label" id="magnitude-minmagnitude">
-                                Minimum
-                            </label>
-                            <input type="number" step="any" name="minmagnitude" id="minmagnitude" min="-1" max="10" value="" aria-labelledby="magnitude magnitude-minmagnitude">
-                        </li>
-                        <li>
-                            <label for="maxmagnitude" class="label" id="magnitude-maxmagnitude">
-                                Maximum
-                            </label>
-                            <input type="number" step="any" name="maxmagnitude" id="maxmagnitude" min="-1" max="10" value=" " aria-labelledby="magnitude magnitude-maxmagnitude">
-                        </li>
-                    </ul>
-                </div>
-                <div class="one-of-three column">
-                        <h3 id="datetime" class="label">Date &amp; Time</h3>
-                        <ul class="no-style basictime-list"><li><input id="basictime-weekago" type="radio" name="basictime" value="7" checked="checked" aria-labelledby="basictime-weekago"><label for="basictime-weekago" class="label-checkbox">Past 7 Days</label></li><li><input id="basictime-monthago" type="radio" name="basictime" value="30" aria-labelledby="basictime-monthago"><label for="basictime-monthago" class="label-checkbox">Past 30 Days</label></li><li><input id="basictime-custom" type="radio" name="basictime" value="custom" aria-labelledby="basictime-custom"><label for="basictime-custom" class="label-checkbox">Custom</label></li></ul>
-                        <ul class="vertical no-style">
-                            <li>
-                                <label for="starttime" class="label" id="datetime-starttime"> Start (UTC)
-                                </label>
-                                <input type="text" name="starttime" id="starttime" placeholder="yyyy-mm-dd hh:mm:ss" aria-labelledby="datetime datetime-starttime">
-                            </li>
-                            <li>
-                                <label for="endtime" class="label" id="datetime-endtime">
-                                    End (UTC)
-                                </label>
-                                <input type="text" name="endtime" id="endtime" placeholder="yyyy-mm-dd hh:mm:ss" aria-labelledby="datetime datetime-endtime">
-                            </li>
-                        </ul>
-                </div>
-                <div class="one-of-three column">
-                        <h3 class="label">Geographic Region</h3>
-                        <ul class="no-style basiclocation-list">
-                            <li>
-                                <input type="radio" name="basic-location" id="basic-location-world" value="basic-location-world">
-                                <label for="basic-location-world" class="label-checkbox">World</label>
-                            </li>
-                            <li>
-                                <input type="radio" name="basic-location" id="basic-location-us" value="basic-location-us">
-                                <label for="basic-location-us" class="label-checkbox">Conterminous U.S.<sup>1</sup></label>
-                            </li><li><input type="radio" name="basic-location" id="basic-location-custom" value="basic-location-custom">
-                            <label for="basic-location-custom" class="label-checkbox">Custom</label>
-                        </li></ul><div class="region-description"><h3>Worldwide</h3></div>
-                </div>
-            </div>
-        --->
-        <div class="header">
-            <h1>Welcome to our <i><u>Earthquake</u></i> Application</h1>
-            <h2><i>By: Allen Ge, Geon Wook, Jonathan Chu, and Nick Witmer</i></h2>
-            <br><br>
-        </div>
-        <div class="main">
-            <p>Below, you can choose a latitude and longitude in order to see a heatmap representation of all earthquakes in that specified area. Currently, the default values are coordinates relating to Hawaii. Try it out by clicking "Add Coordinate".</p>
-            <form action="@routes.HomeController.addLocation()" method="POST">
-                <input type="text" name="latitude"  value="19.8968"/>
-                <input type="text" name="longitude" value="-155.5828"/>
-                <button>Add Coordinate</button>
-            </form>
-            <br><br>
-            <p>You can also see your history of searches by clicking the button below</p>
-
-            <form action="@routes.HomeController.getHistory()" method ="">
-                <button>History</button>
-            </form>
-        </div>
-
-    </html>
+        <br><br>
+        <p>You can also see your history of searches by clicking the button below</p>
+        <form action="@routes.HomeController.getHistory()" method ="">
+            <button>History</button>
+        </form>
+    </div>
 }
-
-@*<input type="button" value="History" onClick="location.href='http://localhost:9000/history'">*@
