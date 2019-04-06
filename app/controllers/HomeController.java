@@ -53,7 +53,8 @@ public class HomeController extends Controller {
 
     public Result getHistory(){
         List<Coordinate> coordinates = Coordinate.find.all();
-        return ok(toJson(coordinates));
+        return ok(history.render(toJson(coordinates).toString()));
+        //return ok(toJson(coordinates));
     }
 
     /*public Result returnCoordinates() throws MalformedURLException, ProtocolException, IOException {

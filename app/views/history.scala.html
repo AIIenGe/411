@@ -1,0 +1,19 @@
+@import com.fasterxml.jackson.databind.JsonNode
+
+@(title: String)
+
+<!DOCTYPE html>
+<html lang="en">
+    <p id="demo"></p>
+    <script>
+            var text = "";
+    var data = "@title";
+    data = JSON.parse(data.replace(/&quot;/g,'"'));
+    var length = data.length;
+    for(i = 0; i < length; i++){
+        text += "latitude: " + data[i].latitude + " longitude: " + data[i].longitude + "<br>";
+    }
+        document.getElementById("demo").innerHTML = text;
+    </script>
+
+</html>
