@@ -3,8 +3,17 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <style>
+            div.result {
+                width: 700px;
+                height: 300px;
+                overflow: scroll;
+            }
+
+        </style>
         <title></title>
         <meta charset="utf-8" />
+        <div class="result">
         <p id="demo"></p>
         <script type='text/javascript'>
             var text = ""
@@ -18,8 +27,9 @@
 
             }
             document.getElementById("demo").innerHTML = text;
-
         </script>
+        </div>
+
 
         <script type='text/javascript'>
                 var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=' + @Coordinate.latitude + '&longitude=' + @Coordinate.longitude + '&maxradiuskm=100&minmagnitude=5';
