@@ -1,10 +1,26 @@
 @import Model.Coordinate
-@(Coordinate: Coordinate)
+@(Coordinate: Coordinate, test: String)
 <!DOCTYPE html>
 <html>
     <head>
         <title></title>
         <meta charset="utf-8" />
+        <p id="demo"></p>
+        <script type='text/javascript'>
+            var text = ""
+            var testing = "@test";
+            testing = JSON.parse(testing.replace(/&quot;/g,'"'));
+            for(i = 0; i < testing.length; i++){
+                for(j = 0 ; j < testing[i].length; j++){
+                    text += testing[i][j] + " "
+                }
+                text += "<br>"
+
+            }
+            document.getElementById("demo").innerHTML = text;
+
+        </script>
+
         <script type='text/javascript'>
                 var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=' + @Coordinate.latitude + '&longitude=' + @Coordinate.longitude + '&maxradiuskm=100&minmagnitude=5';
                 function GetMap() {

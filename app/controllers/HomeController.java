@@ -16,6 +16,7 @@ import views.html.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -47,9 +48,6 @@ public class HomeController extends Controller {
         return redirect(routes.HomeController.returnHeatmap());
     }
 
-    public Result returnHeatmap() {
-        return ok(heatMap.render(coordinate));
-    }
 
     public Result getHistory(){
         List<Coordinate> coordinates = Coordinate.find.all();
@@ -57,7 +55,7 @@ public class HomeController extends Controller {
         //return ok(toJson(coordinates));
     }
 
-    /*public Result returnCoordinates() throws MalformedURLException, ProtocolException, IOException {
+    public Result returnHeatmap() throws MalformedURLException, ProtocolException, IOException {
         ArrayList<JsonElement> coordinateList = new ArrayList<>();
         URL url = new URL("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=" + coordinate.getLatitude() + "&longitude=" + coordinate.getLongitude() + "&maxradiuskm=100&minmagnitude=5");
 
@@ -84,22 +82,58 @@ public class HomeController extends Controller {
         JsonArray main = mainElement.getAsJsonArray();
 
         for (int i = 0; i < main.size(); i++) {
+
             JsonElement first = main.get(i);
             JsonObject inside = first.getAsJsonObject();
+
+            JsonElement properties = inside.get("properties");
+            JsonObject properties_object = properties.getAsJsonObject();
+
+            JsonElement Time = properties_object.get("time");
+            /*
+            JsonElement Magnitude = properties_object.get("mag");
+            JsonElement Place = properties_object.get("place");
+
+
             JsonElement geometry = inside.get("geometry");
             JsonObject coordinates_object = geometry.getAsJsonObject();
-            JsonElement coordinates = coordinates_object.get("coordinates");
-            JsonArray last = coordinates.getAsJsonArray();
+            JsonArray coordinates = coordinates_object.get("coordinates").getAsJsonArray();
 
-            coordinateList.add(coordinates);
-            //System.out.println(coordinates);
-            //coordinate.add(new Coordinate(last.get(0), last.get(1)));
+            JsonElement Longitude = coordinates.get(0);
+            JsonElement Latitude = coordinates.get(1);
+            */
+            JsonElement Title = properties_object.get("title");
 
-            //System.out.print(last.get(0) + " ");
-            //System.out.println(last.get(1));
-            //test
-            //merge test
+
+
+            //https://stackoverflow.com/questions/17432735/convert-unix-time-stamp-to-date-in-java
+
+            BigInteger bd = Time.getAsBigInteger();
+            Long value = bd.divide(new BigInteger("1000")).longValue();
+
+            java.util.Date unixSeconds =new java.util.Date((long)value * 1000);
+
+
+            //JsonArray last = coordinates.getAsJsonArray();
+
+            JsonArray combined = new JsonArray();
+            combined.add(Title);
+            combined.add(unixSeconds.toString());
+
+
+
+            coordinateList.add(combined);
+            //3.0 69km SSW of Kobuk, Alaska 2019-04-16 23:55:25 (UTC)
+            //#1 MinMagnitude: textbox
+            //#2 Start Date: textbox
+            //#3 End Date: textbox
+            //#4 Radius: textox
+            //
+            //#5 World: Radio Button
+            //#6 Latitude: textbox
+            //#7 Longitude: textbox
         }
-        return ok(coordinateList.toString());
-    }*/
+        return ok(heatMap.render(coordinate, coordinateList.toString()));
+
+    }
 }
