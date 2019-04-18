@@ -3,34 +3,43 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8" />
+
         <style>
-            div.result {
-                width: 700px;
-                height: 300px;
-                overflow: scroll;
-            }
+                div.result {
+                    float:right;
+                    width: 600px;
+                    height: 1000px;
+                    overflow: scroll;
+                }
 
         </style>
-        <title></title>
-        <meta charset="utf-8" />
+
+        <div class = "container">
+
+
         <div class="result">
         <p id="demo"></p>
-        <script type='text/javascript'>
+            <script type='text/javascript'>
             var text = ""
             var testing = "@test";
-            testing = JSON.parse(testing.replace(/&quot;/g,'"'));
-            for(i = 0; i < testing.length; i++){
-                for(j = 0 ; j < testing[i].length; j++){
-                    text += testing[i][j] + " "
-                }
-                text += "<br>"
+            function generateResults() {
+                testing = JSON.parse(testing.replace(/&quot;/g, '"'));
+                for (i = 0; i < testing.length; i++) {
+                    for (j = 0 ; j < testing[i].length; j++) {
+                        text += testing[i][j] + " ";
+                    }
+                    text += "<br>";
 
+                }
+                document.getElementById("demo").innerHTML = text;
             }
-            document.getElementById("demo").innerHTML = text;
+
+
         </script>
         </div>
 
-
+        <div class = "heatmap">
         <script type='text/javascript'>
                 var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=' + @Coordinate.latitude + '&longitude=' + @Coordinate.longitude + '&maxradiuskm=100&minmagnitude=5';
                 function GetMap() {
@@ -53,8 +62,15 @@
                 }
         </script>
         <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AktwjWKLr_80k1fFaDgor86KDa5m0zv7sIFJnOy8d2H50CJ8tBWG-A4eKSWEMaX8' async defer></script>
-    </head>
+        </div>
+        </div>
+            </head>
     <body>
-        <div id="myMap" style="position:relative;width:800px;height:600px;"></div>
+        <div id="myMap" style="width:800px;height:1000px;float:left"></div>
+        <div style = "float:right">
+        <script type='text/javascript'>
+            generateResults();
+        </script>
+        </div>
     </body>
 </html>
