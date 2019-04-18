@@ -6,12 +6,14 @@
         <meta charset="utf-8" />
 
         <style>
+
                 div.result {
                     float:right;
                     width: 600px;
                     height: 1000px;
                     overflow: scroll;
                 }
+
 
         </style>
 
@@ -41,6 +43,43 @@
 
         <div class = "heatmap">
         <script type='text/javascript'>
+
+                /*/!*Defaults:*!/
+
+                var startTime = "2017-01-01";
+                var endTime = "2019-04-17";
+                var latitude = "19.8968";
+                var longitude = "-155.5828";
+                var maxRadius = 100;
+                var minMagnitude = 5;
+
+                if (@Earthquake.startTime != "2017-01-01") {
+                    startTime = @Earthquake.startTime;
+                }
+                if (@Earthquake.endTime != "2019-04-17") {
+                    endTime = @Earthquake.endTime;
+                }
+                if (@Earthquake.latitude != "19.8968") {
+                    latitude = @Earthquake.latitude;
+                }
+                if (@Earthquake.longitude != "-155.5828") {
+                    longitude = @Earthquake.longitude;
+                }
+                if (@Earthquake.maxRadius != 100) {
+                    maxRadius = @Earthquake.maxRadius;
+                }
+                if (@Earthquake.minMagnitude != 5) {
+                    minMagnitude = @Earthquake.minMagnitude;
+                }
+
+                var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson' +
+                '&starttime=' + startTime +
+                '&endtime=' + endTime +
+                '&latitude=' + latitude +
+                '&longitude=' + longitude +
+                '&maxradiuskm=' + maxRadius +
+                '&minmagnitude=' + minMagnitude;*/
+
                 var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=' + @Coordinate.latitude + '&longitude=' + @Coordinate.longitude + '&maxradiuskm=100&minmagnitude=5';
                 function GetMap() {
                     var map = new Microsoft.Maps.Map('#myMap', {

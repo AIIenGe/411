@@ -57,6 +57,44 @@ public class HomeController extends Controller {
 
     public Result returnHeatmap() throws MalformedURLException, ProtocolException, IOException {
         ArrayList<JsonElement> coordinateList = new ArrayList<>();
+
+        /*Defaults:*//*
+
+        String startTime = "2017-01-01";
+        String endTime = "2019-04-17";
+        String latitude = "19.8968";
+        String longitude = "-155.5828";
+        int maxRadius = 100;
+        int minMagnitude = 5;
+
+        if (!earthquake.getStartTime().equals("2017-01-01")) {
+            startTime = earthquake.getStartTime();
+        }
+        if (!earthquake.getEndTime().equals("2019-04-17")) {
+            endTime = earthquake.getEndTime();
+        }
+        if (!earthquake.getLatitude().equals("19.8968")) {
+            latitude = earthquake.getLatitude();
+        }
+        if (!earthquake.getLongitude().equals("-155.5828")) {
+            longitude = earthquake.getLongitude();
+        }
+        if (earthquake.getmaxRadius() != 100) {
+            maxRadius = earthquake.getmaxRadius();
+        }
+        if (earthquake.getMinMagnitude() != 5) {
+            minMagnitude = earthquake.getMinMagnitude();
+        }
+
+        URL url = new URL("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson" +
+        "&starttime=" + startTime +
+        "&endtime=" + endTime +
+        "&latitude=" + latitude +
+        "&longitude=" + longitude +
+        "&maxradiuskm=" + maxRadius +
+        "&minmagnitude=" + minMagnitude);*/
+
+
         URL url = new URL("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=" + coordinate.getLatitude() + "&longitude=" + coordinate.getLongitude() + "&maxradiuskm=100&minmagnitude=5");
 
         //http://chillyfacts.com/java-send-http-getpost-request-and-read-json-response
