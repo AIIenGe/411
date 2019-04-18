@@ -2,6 +2,7 @@ package controllers;
 
 
 import Model.Coordinate;
+import Model.Earthquake;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -34,7 +35,7 @@ import javax.inject.Inject;
 public class HomeController extends Controller {
     @Inject
     private FormFactory formFactory;
-    private Coordinate coordinate;
+    private Earthquake earthquake;
     //merge element
 
     public Result index() {
@@ -42,9 +43,9 @@ public class HomeController extends Controller {
     }
 
     public Result addLocation (Http.Request request) {
-        Form<Coordinate> coordinateForm = formFactory.form(Coordinate.class).bindFromRequest(request);
-        coordinate = coordinateForm.get();
-        coordinate.save();
+        Form<Earthquake> earthquakeForm = formFactory.form(Earthquake.class).bindFromRequest(request);
+        earthquake = earthquakeForm.get();
+        earthquake.save();
         return redirect(routes.HomeController.returnHeatmap());
     }
 
@@ -95,7 +96,7 @@ public class HomeController extends Controller {
         "&minmagnitude=" + minMagnitude);*/
 
 
-        URL url = new URL("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=" + coordinate.getLatitude() + "&longitude=" + coordinate.getLongitude() + "&maxradiuskm=100&minmagnitude=5");
+        URL url = new URL("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=" + earthquake.getLatitude() + "&longitude=" + earthquake.getLongitude() + "&maxradiuskm=100&minmagnitude=5");
 
         //http://chillyfacts.com/java-send-http-getpost-request-and-read-json-response
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -171,7 +172,7 @@ public class HomeController extends Controller {
             //#6 Latitude: textbox
             //#7 Longitude: textbox
         }
-        return ok(heatMap.render(coordinate, coordinateList.toString()));
+        return ok(heatMap.render(earthquake, coordinateList.toString()));
 
     }
 }

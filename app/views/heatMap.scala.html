@@ -1,5 +1,5 @@
-@import Model.Coordinate
-@(Coordinate: Coordinate, test: String)
+@import Model.Earthquake
+@(Earthquake: Earthquake, test: String)
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,7 +10,7 @@
                 div.result {
                     float:right;
                     width: 600px;
-                    height: 1000px;
+                    height: 800px;
                     overflow: scroll;
                 }
 
@@ -45,12 +45,15 @@
         <div class = "heatmap">
         <script type='text/javascript'>
 
+        @* var usgsEarthquakeURL = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=' + @Earthquake.latitude + '&longitude=' + @Earthquake.longitude + '&maxradius=' + @Earthquake.radius + '&minmagnitude=5'; *@
+        @* var usgsEarquakeURL = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=' + @Earthquake.startTime + '&endtime=' + @Earthquake.endTime + '&latitude=' + @Earthquake.latitude + '&longitude=' + @Earthquake.longitude + '&maxradius=' + @Earthquake.radius + '&minmagnitude=' + @Earthquake.minMagnitude;
+        @* var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=' + @Earthquake.latitude + '&longitude=' + @Earthquake.longitude + '&maxradiuskm=100&minmagnitude=5';*@
 
 
-                var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=' + @Coordinate.latitude + '&longitude=' + @Coordinate.longitude + '&maxradiuskm=100&minmagnitude=5';
+                var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=' + @Earthquake.latitude + '&longitude=' + @Earthquake.longitude + '&maxradiuskm=100&minmagnitude=5';
                 function GetMap() {
                     var map = new Microsoft.Maps.Map('#myMap', {
-                        center: new Microsoft.Maps.Location(@Coordinate.latitude, @Coordinate.longitude),
+                        center: new Microsoft.Maps.Location(@Earthquake.latitude, @Earthquake.longitude),
                         mapTypeId: Microsoft.Maps.MapTypeId.canvasLight,
                         zoom: 9
                     });
@@ -72,7 +75,7 @@
         </div>
             </head>
     <body>
-        <div id="myMap" style="width:800px;height:1000px;float:left"></div>
+        <div id="myMap" style="width:800px;height:800px;float:left"></div>
         <div style = "float:right">
         <script type='text/javascript'>
             generateResults();
