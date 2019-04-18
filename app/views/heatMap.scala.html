@@ -1,21 +1,24 @@
-@import Model.Coordinate
-@(Coordinate: Coordinate)
+@import Model.Earthquake
+@(Earthquake: Earthquake)
 <!DOCTYPE html>
 <html>
     <head>
         <title></title>
         <meta charset="utf-8" />
         <script type='text/javascript'>
-                var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=' + @Coordinate.latitude + '&longitude=' + @Coordinate.longitude + '&maxradiuskm=100&minmagnitude=5';
+                @* var usgsEarthquakeURL = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=' + @Earthquake.latitude + '&longitude=' + @Earthquake.longitude + '&maxradius=' + @Earthquake.radius + '&minmagnitude=5'; *@
+                var usgsEarquakeURL = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=' + @Earthquake.startTime + '&endtime=' + @Earthquake.endTime + '&latitude=' + @Earthquake.latitude + '&longitude=' + @Earthquake.longitude + '&maxradius=' + @Earthquake.radius + '&minmagnitude=' + @Earthquake.minMagnitude;
+                @* var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=' + @Earthquake.latitude + '&longitude=' + @Earthquake.longitude + '&maxradiuskm=100&minmagnitude=5';*@
+
                 function GetMap() {
                     var map = new Microsoft.Maps.Map('#myMap', {
-                        center: new Microsoft.Maps.Location(@Coordinate.latitude, @Coordinate.longitude),
+                        center: new Microsoft.Maps.Location(@Earthquake.latitude, @Earthquake.longitude),
                         mapTypeId: Microsoft.Maps.MapTypeId.canvasLight,
                         zoom: 9
                     });
                     //Load the GeoJSON and HeatMap modules.
                     Microsoft.Maps.loadModule(['Microsoft.Maps.GeoJson', 'Microsoft.Maps.HeatMap'], function () {
-                        Microsoft.Maps.GeoJson.readFromUrl(usgsEarthquakeUrl, function (shapes) {
+                        Microsoft.Maps.GeoJson.readFromUrl(usgsEarquakeURL, function (shapes) {
                             var heatmap = new Microsoft.Maps.HeatMapLayer(shapes, {
                                 radius: 10000,
                                 unit: 'meters',

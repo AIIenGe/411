@@ -23,7 +23,11 @@ public class Coordinate extends Model{
     public double getLatitude(){
         return latitude;
     }
-    public long getId(){ return id; }
+
+    public long getId(){
+        return id;
+    }
+
     public double getLongitude(){
         return longitude;
     }

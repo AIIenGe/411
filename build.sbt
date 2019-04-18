@@ -19,6 +19,8 @@ crossScalaVersions := Seq("2.11.12", "2.12.7")
 libraryDependencies += "org.glassfish.jaxb" % "jaxb-core" % "2.3.0.1"
 libraryDependencies += "org.glassfish.jaxb" % "jaxb-runtime" % "2.3.2"
 
+libraryDependencies += "org.mockito" % "mockito-core" % "2.26.0" % "test"
+
 libraryDependencies ++= Seq(guice, evolutions, javaJdbc)
 libraryDependencies += "com.h2database" % "h2" % "1.4.197"
 libraryDependencies += "com.google.code.gson" % "gson" % "2.8.5"

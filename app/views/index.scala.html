@@ -19,11 +19,21 @@
     <div class="main">
         <p>Below, you can choose a latitude and longitude in order to see a heatmap representation of all earthquakes in that specified area. Currently, the default values are coordinates relating to Hawaii. Try it out by clicking "Add Coordinate".</p>
         <form action="@routes.HomeController.addLocation()" method="POST">
-            <input type="text" name="latitude"  value="19.8968"/>
+            @*#1 Start Time:*@
+            <input type="text" name="startTime" value="2000-01-01"/>
+            @*#2 End Time:*@
+            <input type="text" name="endTime" value="2019-01-02"/>
+            @*#3 Latitude:*@
+            <input type="text" name="latitude" value="19.8968"/>
+            @*#4 Longitude:*@
             <input type="text" name="longitude" value="-155.5828"/>
+            @*#5 MinMagnitude:*@
+            <input type="text" name="minMagnitude" value="2"/>
+            @*#6 Radius:*@
+            <input type="text" name="radius"  value="100"/>
+
             <button>Add Coordinate</button>
         </form>
-
         <br><br>
         <p>You can also see a history of searches by clicking the button below</p>
         <form action="@routes.HomeController.getHistory()" method ="">

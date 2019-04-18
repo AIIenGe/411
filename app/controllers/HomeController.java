@@ -1,7 +1,7 @@
 package controllers;
 
 
-import Model.Coordinate;
+import Model.Earthquake;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -33,7 +33,7 @@ import javax.inject.Inject;
 public class HomeController extends Controller {
     @Inject
     private FormFactory formFactory;
-    private Coordinate coordinate;
+    private Earthquake earthquake;
     //merge element
 
     public Result index() {
@@ -41,65 +41,19 @@ public class HomeController extends Controller {
     }
 
     public Result addLocation (Http.Request request) {
-        Form<Coordinate> coordinateForm = formFactory.form(Coordinate.class).bindFromRequest(request);
-        coordinate = coordinateForm.get();
-        coordinate.save();
+        Form<Earthquake> earthquakeForm = formFactory.form(Earthquake.class).bindFromRequest(request);
+        earthquake = earthquakeForm.get();
+        earthquake.save();
         return redirect(routes.HomeController.returnHeatmap());
     }
 
     public Result returnHeatmap() {
-        return ok(heatMap.render(coordinate));
+        return ok(heatMap.render(earthquake));
     }
 
-    public Result getHistory(){
-        List<Coordinate> coordinates = Coordinate.find.all();
-        return ok(history.render(toJson(coordinates).toString()));
+    public Result getHistory() {
+        List<Earthquake> earthquakes = Earthquake.find.all();
+        return ok(history.render(toJson(earthquakes).toString()));
         //return ok(toJson(coordinates));
     }
-
-    /*public Result returnCoordinates() throws MalformedURLException, ProtocolException, IOException {
-        ArrayList<JsonElement> coordinateList = new ArrayList<>();
-        URL url = new URL("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=" + coordinate.getLatitude() + "&longitude=" + coordinate.getLongitude() + "&maxradiuskm=100&minmagnitude=5");
-
-        //http://chillyfacts.com/java-send-http-getpost-request-and-read-json-response
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("GET");
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuilder response = new StringBuilder();
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        in.close();
-        JsonParser JsonParser = new JsonParser();
-
-
-        JsonElement jsonTree = JsonParser.parse(response.toString());
-        System.out.println(jsonTree);
-        JsonObject test = (JsonObject) jsonTree;
-
-        JsonElement mainElement = test.get("features");
-
-        JsonArray main = mainElement.getAsJsonArray();
-
-        for (int i = 0; i < main.size(); i++) {
-            JsonElement first = main.get(i);
-            JsonObject inside = first.getAsJsonObject();
-            JsonElement geometry = inside.get("geometry");
-            JsonObject coordinates_object = geometry.getAsJsonObject();
-            JsonElement coordinates = coordinates_object.get("coordinates");
-            JsonArray last = coordinates.getAsJsonArray();
-
-            coordinateList.add(coordinates);
-            //System.out.println(coordinates);
-            //coordinate.add(new Coordinate(last.get(0), last.get(1)));
-
-            //System.out.print(last.get(0) + " ");
-            //System.out.println(last.get(1));
-            //test
-            //merge test
-        }
-        return ok(coordinateList.toString());
-    }*/
 }
