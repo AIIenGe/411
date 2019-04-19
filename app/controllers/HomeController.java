@@ -172,7 +172,7 @@ public class HomeController extends Controller {
             //#6 Latitude: textbox
             //#7 Longitude: textbox
         }
-        return ok(heatMap.render(earthquake, coordinateList.toString(), earthquake.startTime, earthquake.endTime));
+        return ok(heatMap.render(earthquake, coordinateList.toString()));
 
     }
 }
