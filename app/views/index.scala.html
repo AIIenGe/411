@@ -1,7 +1,3 @@
-@*
-* This template takes a single argument, a String containing a
-* message to display.
-*@
 @(message: String)
 
 @*
@@ -20,15 +16,15 @@
         <p>Below, you can choose a latitude and longitude in order to see a heatmap representation of all earthquakes in that specified area. Currently, the default values are coordinates relating to Hawaii. Try it out by clicking "Add Coordinate".</p>
         <form action="@routes.HomeController.addLocation()" method="POST">
             @*#1 Start Time:*@
-            <input type="text" name="startTime" value="2000-01-01"/>
+            <input type="text" name="startTime" value="2018-01-01"/>
             @*#2 End Time:*@
-            <input type="text" name="endTime" value="2019-01-02"/>
+            <input type="text" name="endTime" value="2019-04-17"/>
             @*#3 Latitude:*@
             <input type="text" name="latitude" value="19.8968"/>
             @*#4 Longitude:*@
             <input type="text" name="longitude" value="-155.5828"/>
             @*#5 MinMagnitude:*@
-            <input type="text" name="minMagnitude" value="2"/>
+            <input type="text" name="minMagnitude" value="5"/>
             @*#6 Radius:*@
             <input type="text" name="radius"  value="100"/>
 

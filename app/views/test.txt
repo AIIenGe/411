@@ -1,6 +1,6 @@
 <!--
                 defaults
-                var startTime = "2017-01-01";
+                var startTime = "2018-01-01";
                 var endTime = "2019-04-17";
                 var latitude = "19.8968";
                 var longitude = "-155.5828";

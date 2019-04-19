@@ -1,5 +1,5 @@
 @import Model.Earthquake
-@(Earthquake: Earthquake, test: String)
+@(Earthquake: Earthquake, test: String, starTime: String, endTime: String)
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,6 +16,8 @@
 
 
         </style>
+
+        @Earthquake.endTime;
 
         <div class = "container">
 
@@ -45,12 +47,10 @@
         <div class = "heatmap">
         <script type='text/javascript'>
 
-        @* var usgsEarthquakeURL = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=' + @Earthquake.latitude + '&longitude=' + @Earthquake.longitude + '&maxradius=' + @Earthquake.radius + '&minmagnitude=5'; *@
-        @* var usgsEarquakeURL = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=' + @Earthquake.startTime + '&endtime=' + @Earthquake.endTime + '&latitude=' + @Earthquake.latitude + '&longitude=' + @Earthquake.longitude + '&maxradius=' + @Earthquake.radius + '&minmagnitude=' + @Earthquake.minMagnitude;
-        @* var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=' + @Earthquake.latitude + '&longitude=' + @Earthquake.longitude + '&maxradiuskm=100&minmagnitude=5';*@
 
+            var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=' + "@Earthquake.startTime" + '&endtime=' + "@Earthquake.endTime" + '&latitude=' + @Earthquake.latitude + '&longitude=' + @Earthquake.longitude + '&maxradius=' + @Earthquake.radius + '&minmagnitude=' + @Earthquake.minMagnitude;
+            console.log(usgsEarthquakeUrl);
 
-                var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=' + @Earthquake.latitude + '&longitude=' + @Earthquake.longitude + '&maxradiuskm=100&minmagnitude=5';
                 function GetMap() {
                     var map = new Microsoft.Maps.Map('#myMap', {
                         center: new Microsoft.Maps.Location(@Earthquake.latitude, @Earthquake.longitude),
