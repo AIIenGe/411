@@ -11,9 +11,6 @@ public class Earthquake extends Model{
     public String startTime;
     public String endTime;
 
-    public double latitude;
-    public double longitude;
-
     public double minMagnitude;
     public double radius;
 
@@ -21,26 +18,16 @@ public class Earthquake extends Model{
 
     }
 
-    public Earthquake(long id, String startTime, String endTime, double latitude, double longitude, double minMagnitude, double radius){
+    public Earthquake(long id, String startTime, String endTime, double minMagnitude, double radius){
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.latitude = latitude;
-        this.longitude = longitude;
         this.minMagnitude = minMagnitude;
         this.radius = radius;
 
     }
 
-    public double getLatitude(){
-        return latitude;
-    }
-
     public long getId(){ return id; }
-
-    public double getLongitude(){
-        return longitude;
-    }
 
     public double getMinMagnitude(){
         return minMagnitude;

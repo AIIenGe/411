@@ -6,25 +6,18 @@ import io.ebean.*;
 @Entity
 public class Coordinate extends Model{
     @Id
-    private long id;
     public double latitude;
     public double longitude;
 
-    public Coordinate(){
-
-    }
-
-    public Coordinate(long id, double latitude, double longitude){
-        this.id = id;
+    public Coordinate(double latitude, double longitude){
         this.latitude = latitude;
         this.longitude = longitude;
     }
 
-    public double getLatitude(){
+    public double getlatitude(){
         return latitude;
     }
-    public long getId(){ return id; }
-    public double getLongitude(){
+    public double getlongitude(){
         return longitude;
     }
 

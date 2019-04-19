@@ -1,5 +1,6 @@
 @import Model.Earthquake
-@(Earthquake: Earthquake, test: String)
+@import Model.Coordinate
+@(Coordinate: Coordinate, Earthquake: Earthquake, test: String)
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,7 +14,6 @@
                     height: 800px;
                     overflow: scroll;
                 }
-
 
         </style>
 
@@ -46,14 +46,14 @@
         <script type='text/javascript'>
 
 
-            var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=' + "@Earthquake.startTime" + '&endtime=' + "@Earthquake.endTime" + '&latitude=' + @Earthquake.latitude + '&longitude=' + @Earthquake.longitude + '&maxradiuskm=' + @Earthquake.radius + '&minmagnitude=' + @Earthquake.minMagnitude;
+            var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=' + "@Earthquake.startTime" + '&endtime=' + "@Earthquake.endTime" + '&latitude=' + @Coordinate.latitude + '&longitude=' + @Coordinate.longitude + '&maxradiuskm=' + @Earthquake.radius + '&minmagnitude=' + @Earthquake.minMagnitude;
             console.log(usgsEarthquakeUrl);
 
                 function GetMap() {
                     var map = new Microsoft.Maps.Map('#myMap', {
-                        center: new Microsoft.Maps.Location(@Earthquake.latitude, @Earthquake.longitude),
+                        center: new Microsoft.Maps.Location(@Coordinate.latitude, @Coordinate.longitude),
                         mapTypeId: Microsoft.Maps.MapTypeId.canvasLight,
-                        zoom: 8
+                        zoom: 9
                     });
                     //Load the GeoJSON and HeatMap modules.
                     Microsoft.Maps.loadModule(['Microsoft.Maps.GeoJson', 'Microsoft.Maps.HeatMap'], function () {

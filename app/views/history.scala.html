@@ -5,7 +5,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <h1>History</h1>
+    <h1>Search History</h1>
     <p id="demo"></p>
     <script>
             var text = "";
@@ -13,7 +13,7 @@
     data = JSON.parse(data.replace(/&quot;/g,'"'));
     var length = data.length;
     for(i = 0; i < length; i++){
-        text += "latitude: " + data[i].latitude + " longitude: " + data[i].longitude + "<br>";
+        text += "City: " + data[i].city + " Country: " + data[i].country + "<br>";
     }
         document.getElementById("demo").innerHTML = text;
     </script>

@@ -1,16 +1,15 @@
 package controllers;
 
-
+import Model.Location;
 import Model.Earthquake;
-import com.fasterxml.jackson.databind.JsonNode;
+import Model.Coordinate;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import play.data.Form;
 import play.data.FormFactory;
-import play.libs.Json;
 import play.mvc.*;
-import io.ebean.Model;
 import views.html.*;
 
 import java.io.BufferedReader;
@@ -25,9 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static play.libs.Json.toJson;
-import play.data.*;
+
 import com.google.gson.*;
-import com.google.gson.Gson;
 
 import javax.inject.Inject;
 
@@ -35,6 +33,8 @@ public class HomeController extends Controller {
     @Inject
     private FormFactory formFactory;
     private Earthquake earthquake;
+    private Location location;
+    private Coordinate coordinate;
     //merge element
 
     public Result index() {
@@ -43,16 +43,59 @@ public class HomeController extends Controller {
 
     public Result addLocation (Http.Request request) {
         Form<Earthquake> earthquakeForm = formFactory.form(Earthquake.class).bindFromRequest(request);
+        Form<Location> locationForm = formFactory.form(Location.class).bindFromRequest(request);
         earthquake = earthquakeForm.get();
+        location = locationForm.get();
+
         earthquake.save();
+        location.save();
+        try {
+            coordinate = getGeoCoordinates(location);
+        }
+        catch(IOException e){
+
+        }
         return redirect(routes.HomeController.returnHeatmap());
     }
 
 
-    public Result getHistory(){
-        List<Earthquake> coordinates = Earthquake.find.all();
-        return ok(history.render(toJson(coordinates).toString()));
+    public Result getHistory() {
+        List<Location> location = Location.find.all();
+        return ok(history.render(toJson(location).toString()));
         //return ok(toJson(coordinates));
+    }
+
+    public Coordinate getGeoCoordinates(Location location)  throws MalformedURLException, ProtocolException, IOException{
+        String city = location.city.replace(" ","+");
+        String country = location.country.replace(" ", "+");
+        final String APIKey = "170ae8c810934cae9ec4179055994214";
+
+        URL url = new URL("https://api.opencagedata.com/geocode/v1/json?q=" + city
+                + "%2C+%2C+" + country + "&key=" + APIKey + "&pretty=1");
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        JsonParser JsonParser = new JsonParser();
+        Gson g = new Gson();
+        JsonElement jsonTree = JsonParser.parse(response.toString());
+
+        JsonObject total = jsonTree.getAsJsonObject();
+        JsonArray JsonArray = total.getAsJsonArray("results");
+        JsonObject most = JsonArray.get(0).getAsJsonObject();
+        JsonObject gemetry = most.get("geometry").getAsJsonObject();
+
+        double latitude = gemetry.get("lat").getAsDouble();
+        double longitude = gemetry.get("lng").getAsDouble();
+
+        return new Coordinate(latitude,longitude);
+
     }
 
     public Result returnHeatmap() throws MalformedURLException, ProtocolException, IOException {
@@ -97,9 +140,8 @@ public class HomeController extends Controller {
 
 
         URL url = new URL("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=" + earthquake.startTime +
-                "&endtime=" + earthquake.endTime + "&latitude=" + earthquake.latitude + "&longitude=" + earthquake.longitude +
+                "&endtime=" + earthquake.endTime + "&latitude=" + coordinate.latitude + "&longitude=" + coordinate.longitude +
                 "&maxradiuskm=" + earthquake.radius + "&minmagnitude=" + earthquake.minMagnitude);
-        System.out.println(url);
 
         //http://chillyfacts.com/java-send-http-getpost-request-and-read-json-response
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -175,7 +217,7 @@ public class HomeController extends Controller {
             //#6 Latitude: textbox
             //#7 Longitude: textbox
         }
-        return ok(heatMap.render(earthquake, coordinateList.toString()));
+        return ok(heatMap.render(coordinate, earthquake, coordinateList.toString()));
 
     }
 }
