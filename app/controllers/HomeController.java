@@ -1,7 +1,6 @@
 package controllers;
 
 
-import Model.Coordinate;
 import Model.Earthquake;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.JsonArray;
@@ -51,7 +50,7 @@ public class HomeController extends Controller {
 
 
     public Result getHistory(){
-        List<Coordinate> coordinates = Coordinate.find.all();
+        List<Earthquake> coordinates = Earthquake.find.all();
         return ok(history.render(toJson(coordinates).toString()));
         //return ok(toJson(coordinates));
     }
@@ -96,7 +95,11 @@ public class HomeController extends Controller {
         "&minmagnitude=" + minMagnitude);*/
 
 
-        URL url = new URL("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&latitude=" + earthquake.getLatitude() + "&longitude=" + earthquake.getLongitude() + "&maxradiuskm=100&minmagnitude=5");
+
+        URL url = new URL("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=" + earthquake.startTime +
+                "&endtime=" + earthquake.endTime + "&latitude=" + earthquake.latitude + "&longitude=" + earthquake.longitude +
+                "&maxradiuskm=" + earthquake.radius + "&minmagnitude=" + earthquake.minMagnitude);
+        System.out.println(url);
 
         //http://chillyfacts.com/java-send-http-getpost-request-and-read-json-response
         HttpURLConnection con = (HttpURLConnection) url.openConnection();

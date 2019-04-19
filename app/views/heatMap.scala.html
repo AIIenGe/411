@@ -17,8 +17,6 @@
 
         </style>
 
-        @Earthquake.endTime;
-
         <div class = "container">
 
 
@@ -48,14 +46,14 @@
         <script type='text/javascript'>
 
 
-            var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=' + "@Earthquake.startTime" + '&endtime=' + "@Earthquake.endTime" + '&latitude=' + @Earthquake.latitude + '&longitude=' + @Earthquake.longitude + '&maxradius=' + @Earthquake.radius + '&minmagnitude=' + @Earthquake.minMagnitude;
+            var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=' + "@Earthquake.startTime" + '&endtime=' + "@Earthquake.endTime" + '&latitude=' + @Earthquake.latitude + '&longitude=' + @Earthquake.longitude + '&maxradiuskm=' + @Earthquake.radius + '&minmagnitude=' + @Earthquake.minMagnitude;
             console.log(usgsEarthquakeUrl);
 
                 function GetMap() {
                     var map = new Microsoft.Maps.Map('#myMap', {
                         center: new Microsoft.Maps.Location(@Earthquake.latitude, @Earthquake.longitude),
                         mapTypeId: Microsoft.Maps.MapTypeId.canvasLight,
-                        zoom: 9
+                        zoom: 8
                     });
                     //Load the GeoJSON and HeatMap modules.
                     Microsoft.Maps.loadModule(['Microsoft.Maps.GeoJson', 'Microsoft.Maps.HeatMap'], function () {
