@@ -4,18 +4,28 @@
 @(title: String)
 
 <!DOCTYPE html>
+<head>
+    <style>
+            html {
+                color: #FFF;
+                background-color: #33c472;
+            }
+    </style>
+</head>
 <html lang="en">
     <h1>Search History</h1>
     <p id="demo"></p>
+
     <script>
             var text = "";
-    var data = "@title";
-    data = JSON.parse(data.replace(/&quot;/g,'"'));
-    var length = data.length;
-    for(i = 0; i < length; i++){
-        text += "City: " + data[i].city + " Country: " + data[i].country + "<br>";
-    }
-        document.getElementById("demo").innerHTML = text;
+            var data = "@title";
+            data = JSON.parse(data.replace(/&quot;/g,'"'));
+            var length = data.length;
+
+            for(i = 0; i < length; i++){
+                text += "City: " + data[i].city + " Country: " + data[i].country + "<br>";
+            }
+            document.getElementById("demo").innerHTML = text;
     </script>
 
 </html>

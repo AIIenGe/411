@@ -9,30 +9,43 @@
     <div class="header">
         <h1>Welcome to our <i><u>Earthquake</u></i> Application</h1>
         <h2><i>By: Allen Ge, Geon Wook, Jonathan Chu, and Nick Witmer</i></h2>
-        <br><br>
+        <br>
+    </div>
+    <p>Use the form below to see past earthquakes at a desired location.</p>
+
+    <div class="body-form">
+        <form action="@routes.HomeController.addLocation()" method="POST">
+
+            <label>#1 Start Time</label>
+            <input type="text" name="startTime" value="2018-01-01" placeholder="####-##-## (year-month-day)">
+
+            <label>#2 End Time</label>
+            <input type="text" name="endTime" value="2019-04-17" placeholder="####-##-## (year-month-day)">
+
+            <label>#3 City Name</label>
+            <input type="text" name="city" value="Tokyo" placeholder="City Name Here">
+
+            <label>#4 Country Name</label>
+            <input type="text" name="country" value="Japan" placeholder="Country Name Here">
+
+            <label>#5 Minimum Magnitude</label>
+            <input type="text" name="minMagnitude" value="4" placeholder="##"/>
+
+            <label>#6 Radius:</label>
+            <input type="text" name="radius"  value="100" placeholder="##"/>
+
+            <button id="submit">Add Coordinate</button>
+        </form>
     </div>
 
-    <div class="main">
-        <p>Below, you can choose a latitude and longitude in order to see a heatmap representation of all earthquakes in that specified area. Currently, the default values are coordinates relating to Hawaii. Try it out by clicking "Add Coordinate".</p>
-        <form action="@routes.HomeController.addLocation()" method="POST">
-            StartTime: <input type="text" name="startTime" value="2018-01-01"/>
-            <br>
-            EndTime: <input type="text" name="endTime" value="2019-04-17"/>
-            <br>
-            City: <input type="text" name="city" value="Tokyo"/>
-            <br>
-            Country: <input type="text" name="country" value="Japan"/>
-            <br>
-            minMagnitude: <input type="text" name="minMagnitude" value="4"/>
-            <br>
-            Radius (Miles): <input type="text" name="radius"  value="100"/>
-            <br>
-            <button>Add Coordinate</button>
-        </form>
-        <br><br>
-        <p>You can also see a history of searches by clicking the button below</p>
+    <br>
+
+    <p>You can also see a history of searches by clicking the button below</p>
+    <div class="history-form">
         <form action="@routes.HomeController.getHistory()" method ="">
-            <button>History</button>
+            <button id="history">History</button>
         </form>
     </div>
+
+    <h6>Image Source: <a href="https://wallpapercave.com/epic-background-pictures">here</a> </h6>
 }
