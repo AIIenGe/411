@@ -6,6 +6,7 @@
     <head>
         <meta charset="utf-8" />
 
+
         <style>
 
                 div.result {
@@ -14,8 +15,22 @@
                     height: 800px;
                     overflow: scroll;
                 }
+                #wrapper {
+                    width: 100%;
+                    border: 1px solid black;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                button {
+                    height: 20px;
+                    width: 100px;
+                }
 
         </style>
+
+
 
         <div class = "container">
 
@@ -79,5 +94,10 @@
             generateResults();
         </script>
         </div>
+
+        <form id="wrapper" action="@routes.HomeController.index()" method ="">
+            <button>Back to Home</button>
+        </form>
+
     </body>
 </html>
