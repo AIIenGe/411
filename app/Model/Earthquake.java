@@ -6,7 +6,9 @@ import io.ebean.*;
 @Entity
 public class Earthquake extends Model{
     @Id
-    private long id;
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     public String startTime;
     public String endTime;
@@ -18,7 +20,7 @@ public class Earthquake extends Model{
 
     }
 
-    public Earthquake(long id, String startTime, String endTime, double minMagnitude, double radius){
+    public Earthquake(Long id, String startTime, String endTime, double minMagnitude, double radius){
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;

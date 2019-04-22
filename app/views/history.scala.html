@@ -23,7 +23,7 @@
             var length = data.length;
 
             for(i = 0; i < length; i++){
-                text += "City: " + data[i].city + " Country: " + data[i].country + "<br>";
+                text +=  "<form action=\"/delete/" + data[i].id + "\" method=\"POST\">"+"<input class=\"btn btn-warning\" type=\"submit\" value=\"delete\"></form>"+"ID: " + data[i].id + "City: " + data[i].city + " Country: " + data[i].country + "<br>";
             }
             document.getElementById("demo").innerHTML = text;
     </script>

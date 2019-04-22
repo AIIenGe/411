@@ -17,3 +17,6 @@ GET     /heatmap                    controllers.HomeController.returnHeatmap()
 POST    /addLocation                controllers.HomeController.addLocation(request: Request)
 
 GET     /history                    controllers.HomeController.getHistory()
+
++nocsrf
+POST     /delete/:id                    controllers.HomeController.deleteLocation(id: Long)

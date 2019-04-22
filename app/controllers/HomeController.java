@@ -58,6 +58,14 @@ public class HomeController extends Controller {
         return redirect(routes.HomeController.returnHeatmap());
     }
 
+    public Result deleteLocation(Long id){
+        Location location  = Location.find.byId(id);
+        Earthquake earthquake = Earthquake.find.byId(id);
+
+        location.delete();
+        earthquake.delete();
+        return redirect(routes.HomeController.index());
+    }
 
     public Result getHistory() {
         List<Location> location = Location.find.all();

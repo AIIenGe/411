@@ -3,14 +3,14 @@ package Model;
 import javax.persistence.*;
 import io.ebean.*;
 
-@Entity
+@Entity(name="location")
 public class Location extends Model{
     @Id
-    private long id;
+    public Long id;
     public String city;
     public String country;
 
-    public Location(long id, String city, String country){
+    public Location(Long id, String city, String country){
         this.id = id;
         this.city = city;
         this.country = country;
