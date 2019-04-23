@@ -29,14 +29,24 @@
     <p id="demo"></p>
 
     <script>
+
             var text = "";
+            text += "<table style=\"width:50%\">\n";
+            text += "<tr>";
+            text += "<th>Delete Button</th>";
+            text += "<th>Entry Number</th>";
+            text += "<th>City</th>";
+            text += "<th>Country</th>";
+
+
             var data = "@title";
             data = JSON.parse(data.replace(/&quot;/g,'"'));
             var length = data.length;
 
             for(i = 0; i < length; i++){
-                text +=  "<form action=\"/delete/" + data[i].id + "\" method=\"POST\">"+"<input class=\"btn btn-warning\" type=\"submit\" value=\"delete\"></form>"+"ID: " + data[i].id + " City: " + data[i].city + " Country: " + data[i].country + "<br>";
+                text +=  "<tr> <td><form action=\"/delete/" + data[i].id + "\" method=\"POST\"> </td>"+"<td><input class=\"btn btn-warning\" type=\"submit\" value=\"delete\"></form></td>"+"<td>ID: " + data[i].id + "</td> <td>City: " + data[i].city + "</td> <td> Country: " + data[i].country + "</td></tr>";
             }
+            text += "</table>";
             document.getElementById("demo").innerHTML = text;
     </script>
     <form id="wrapper" action="@routes.HomeController.index()" method ="">
