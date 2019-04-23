@@ -129,6 +129,7 @@ aside a[href^="http"]:after,.doc a[href^="http"]:after{content:url(/assets/image
 html {
     height: 100%;
     color: #FFF;
+    overflow: hidden;
 }
 
 body {
