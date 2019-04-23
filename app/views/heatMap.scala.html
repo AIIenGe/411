@@ -17,7 +17,6 @@
                 }
                 #wrapper {
                     width: 100%;
-                    border: 1px solid black;
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -59,7 +58,7 @@
 
         <div class = "heatmap">
         <script type='text/javascript'>
-
+            //https://github.com/Microsoft/BingMapsV8CodeSamples/blob/master/Samples/Heatmap%20Layers/Heatmap_GeoJSON.html
 
             var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=' + "@Earthquake.startTime" + '&endtime=' + "@Earthquake.endTime" + '&latitude=' + @Coordinate.latitude + '&longitude=' + @Coordinate.longitude + '&maxradiuskm=' + @Earthquake.radius + '&minmagnitude=' + @Earthquake.minMagnitude;
             console.log(usgsEarthquakeUrl);

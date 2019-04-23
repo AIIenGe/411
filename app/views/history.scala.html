@@ -10,6 +10,18 @@
                 color: #FFF;
                 background-color: #33c472;
             }
+            #wrapper {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            button {
+                height: 20px;
+                width: 100px;
+            }
+
     </style>
 </head>
 <html lang="en">
@@ -27,5 +39,8 @@
             }
             document.getElementById("demo").innerHTML = text;
     </script>
+    <form id="wrapper" action="@routes.HomeController.index()" method ="">
+        <button>Back to Home</button>
+    </form>
 
 </html>
