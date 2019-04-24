@@ -8,7 +8,7 @@
     <style>
             html {
                 color: #FFF;
-                background-color: #33c472;
+                background-color: #40B5D0;
             }
             #wrapper {
                 width: 100%;
@@ -18,16 +18,38 @@
             }
 
             button {
-                height: 20px;
+                height: 100px;
                 width: 100px;
+                background-color: #0C3B4B;
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+                border-radius: 12px;
             }
             th {
                 text-align: left;
             }
 
+            h1 {
+                color: #0C3B4B;
+            }
+
     </style>
 </head>
 <html lang="en">
+    <head>
+        <style>
+            table, th, td {
+                border: 1px solid black;
+            }
+            </style>
+    </head>
     <h1>Search History</h1>
     <p id="demo"></p>
 
@@ -47,9 +69,9 @@
 
             for(i = 0; i < length; i++){
                 text += "<tr>";
-                text +=  "<td><form action=\"/delete/" + data[i].id + "\" method=\"POST\">";
+                text +=  "<td align='center'><form action=\"/delete/" + data[i].id + "\" method=\"POST\">";
 
-                text +=  "<input class=\"btn btn-warning\" type=\"submit\" value=\"delete\"></form></td>"
+                text +=  "<input class=\"btn btn-warning \" type=\"submit\" value=\"Delete\"></form></td>"
                 text += "<td>" + data[i].id + "</td>";
                 text += "<td>" + data[i].city + "</td>";
                 text += "<td>" + data[i].country + "</td>";
