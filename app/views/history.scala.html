@@ -21,6 +21,9 @@
                 height: 20px;
                 width: 100px;
             }
+            th {
+                text-align: left;
+            }
 
     </style>
 </head>
@@ -29,23 +32,30 @@
     <p id="demo"></p>
 
     <script>
-
             var text = "";
-            text += "<table style=\"width:50%\">\n";
+            text += "<table style=\"width:50%\">";
             text += "<tr>";
             text += "<th>Delete Button</th>";
             text += "<th>Entry Number</th>";
             text += "<th>City</th>";
             text += "<th>Country</th>";
-
+            text += "</tr>";
 
             var data = "@title";
             data = JSON.parse(data.replace(/&quot;/g,'"'));
             var length = data.length;
 
             for(i = 0; i < length; i++){
-                text +=  "<tr> <td><form action=\"/delete/" + data[i].id + "\" method=\"POST\"> </td>"+"<td><input class=\"btn btn-warning\" type=\"submit\" value=\"delete\"></form></td>"+"<td>ID: " + data[i].id + "</td> <td>City: " + data[i].city + "</td> <td> Country: " + data[i].country + "</td></tr>";
+                text += "<tr>";
+                text +=  "<td><form action=\"/delete/" + data[i].id + "\" method=\"POST\">";
+
+                text +=  "<input class=\"btn btn-warning\" type=\"submit\" value=\"delete\"></form></td>"
+                text += "<td>" + data[i].id + "</td>";
+                text += "<td>" + data[i].city + "</td>";
+                text += "<td>" + data[i].country + "</td>";
+                text += "</tr>";
             }
+
             text += "</table>";
             document.getElementById("demo").innerHTML = text;
     </script>
