@@ -2,8 +2,8 @@
  * Copyright (C) 2009-2017 Lightbend Inc. <https://www.lightbend.com>
  */
 /*html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;}*/
-table{border-collapse:collapse;border-spacing:0;}
-caption,th,td{text-align:left;font-weight:normal;}
+/*table{border-collapse:collapse;border-spacing:0;}*/
+/*caption,th,td{text-align:left;font-weight:normal;}*/
 form legend{display:none;}
 blockquote:before,blockquote:after,q:before,q:after{content:"";}
 blockquote,q{quotes:"" "";}
@@ -150,6 +150,28 @@ h6 {
     font-weight: 100;
 }
 
+/*Button used in all views*/
+#myButton {
+    background-color:#ffffff;
+    -moz-border-radius:20px;
+    -webkit-border-radius:20px;
+    border-radius:20px;
+    border:1px solid #000000;
+    display:inline-block;
+    cursor:pointer;
+    color:#050505;
+    font-family:Arial;
+    font-size:14px;
+    padding:4px 35px;
+    text-decoration:none;
+    text-align: center;
+    position: center;
+}
+
+#myButton:hover {
+    opacity:.7;
+}
+
 .body-form {
     text-align: center;
 }
@@ -184,28 +206,9 @@ h6 {
     -webkit-border-radius:5px;
     border-radius:5px;
 }
+
 ::placeholder {
     color: #FFF;
-}
-
-#submit {
-    background-color:#ffffff;
-    -moz-border-radius:20px;
-    -webkit-border-radius:20px;
-    border-radius:20px;
-    border:1px solid #000000;
-    display:inline-block;
-    cursor:pointer;
-    color:#050505;
-    font-family:Arial;
-    font-size:14px;
-    padding:4px 35px;
-    text-decoration:none;
-    position: center;
-}
-
-#submit:hover {
-    opacity:.7;
 }
 
 .history-form {
@@ -215,27 +218,6 @@ h6 {
 .button {
     position: absolute;
     top: 50%;
-}
-
-#history {
-    background-color:#ffffff;
-    -moz-border-radius:20px;
-    -webkit-border-radius:20px;
-    border-radius:20px;
-    border:1px solid #000000;
-    display:inline-block;
-    cursor:pointer;
-    color:#050505;
-    font-family:Arial;
-    font-size:14px;
-    padding:4px 35px;
-    text-decoration:none;
-    text-align: center;
-    position: center;
-}
-
-#history:hover {
-    opacity:.7;
 }
 
 div.header h1 {
@@ -321,4 +303,27 @@ div.main form {
         padding-left: 15px;
         padding-right: 15px;
     }
+}
+
+table {
+    border: 2px solid black;
+    border-radius: 1em;
+    padding: 1em;
+    color: #fff;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*added the border at the bottom to seperate headings from tabular data*/
+th {
+    text-align: center;
+    color: black;
+    border: 2px solid black;
+    padding-right: 1em;
+}
+
+/*data aligned to the left which also idenifies data from headings*/
+td {
+    text-align: left;
+    color: #fff;
 }

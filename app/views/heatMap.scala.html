@@ -2,114 +2,125 @@
 @import Model.Coordinate
 @(Coordinate: Coordinate, Earthquake: Earthquake, test: String)
 <!DOCTYPE html>
-<html>
     <head>
         <meta charset="utf-8" />
         <style>
-                div.result {
-                    float:right;
-                    width: 600px;
-                    height: 800px;
-                    overflow: scroll;
-                    border-left: 6px solid #40B5D0;
-                    background-color: #def6fc;"
-                }
-                #wrapper {
-                    width: 100%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
+                html {
+                    background: #40B5D0;
+                    text-align: center;
                 }
 
-                button {
-                    height: 100px;
-                    width: 100px;
-                    background-color: #0C3B4B;
-                    border: none;
+                h1 {
                     color: white;
-                    padding: 15px 32px;
+                }
+
+                div.result {
+                    float:right;
+                    margin-right: 3%;
+                    width: 600px;
+                    height: 700px;
+                    overflow: scroll;
+                    border-left: 2px solid white;
+                    background-color: #def6fc;"
+                }
+
+                #myButton {
+                    background-color:#ffffff;
+                    -moz-border-radius:20px;
+                    -webkit-border-radius:20px;
+                    border-radius:20px;
+                    border:1px solid #000000;
+                    display:inline-block;
+                    cursor:pointer;
+                    color:#050505;
+                    font-family:Arial;
+                    font-size:14px;
+                    padding:4px 35px;
+                    text-decoration:none;
                     text-align: center;
-                    text-decoration: none;
-                    display: inline-block;
-                    font-size: 16px;
-                    margin: 4px 2px;
-                    cursor: pointer;
-                    border-radius: 12px;
+                    position: center;
+                }
+
+                #myButton:hover {
+                    opacity:.7;
                 }
 
                 #myMap {
+                    margin-left: 3%;
                     border-style: ridge;
-                    border-width: 2px;
-                    border-color: #def6fc;
+                    border-width: 3px;
+                    border-color: white;
+                    width:600px;
+                    height:700px;
+                    float:left;
                 }
 
 
         </style>
-        <div class = "container">
+    </head>
 
-        <div class="result" >
-        <p id="demo"></p>
-            <script type='text/javascript'>
-            var text = ""
-            var testing = "@test";
-            function generateResults() {
-                testing = JSON.parse(testing.replace(/&quot;/g, '"'));
-                for (i = 0; i < testing.length; i++) {
-                    for (j = 0 ; j < testing[i].length; j++) {
-                        text += testing[i][j] + " ";
-                    }
-                    text += "<br>";
-
+    <script type='text/javascript'>
+        var text = ""
+        var testing = "@test";
+        function generateResults() {
+            testing = JSON.parse(testing.replace(/&quot;/g, '"'));
+            for (i = 0; i < testing.length; i++) {
+                for (j = 0 ; j < testing[i].length; j++) {
+                    text += testing[i][j] + " ";
                 }
-                document.getElementById("demo").innerHTML = text;
+                text += "<br>";
+
             }
+            document.getElementById("demo").innerHTML = text;
+        }
 
 
-        </script>
-        </div>
+    </script>
 
+    <script type='text/javascript'>
+        //https://github.com/Microsoft/BingMapsV8CodeSamples/blob/master/Samples/Heatmap%20Layers/Heatmap_GeoJSON.html
 
-        <div class = "heatmap">
-        <script type='text/javascript'>
-            //https://github.com/Microsoft/BingMapsV8CodeSamples/blob/master/Samples/Heatmap%20Layers/Heatmap_GeoJSON.html
+        var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=' + "@Earthquake.startTime" + '&endtime=' + "@Earthquake.endTime" + '&latitude=' + @Coordinate.latitude + '&longitude=' + @Coordinate.longitude + '&maxradiuskm=' + @Earthquake.radius + '&minmagnitude=' + @Earthquake.minMagnitude;
+        console.log(usgsEarthquakeUrl);
 
-            var usgsEarthquakeUrl = 'https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=' + "@Earthquake.startTime" + '&endtime=' + "@Earthquake.endTime" + '&latitude=' + @Coordinate.latitude + '&longitude=' + @Coordinate.longitude + '&maxradiuskm=' + @Earthquake.radius + '&minmagnitude=' + @Earthquake.minMagnitude;
-            console.log(usgsEarthquakeUrl);
-
-                function GetMap() {
-                    var map = new Microsoft.Maps.Map('#myMap', {
-                        center: new Microsoft.Maps.Location(@Coordinate.latitude, @Coordinate.longitude),
-                        mapTypeId: Microsoft.Maps.MapTypeId.canvasLight,
-                        zoom: 9
+        function GetMap() {
+            var map = new Microsoft.Maps.Map('#myMap', {
+                center: new Microsoft.Maps.Location(@Coordinate.latitude, @Coordinate.longitude),
+                mapTypeId: Microsoft.Maps.MapTypeId.canvasLight,
+                zoom: 9
+            });
+            //Load the GeoJSON and HeatMap modules.
+            Microsoft.Maps.loadModule(['Microsoft.Maps.GeoJson', 'Microsoft.Maps.HeatMap'], function () {
+                Microsoft.Maps.GeoJson.readFromUrl(usgsEarthquakeUrl, function (shapes) {
+                    var heatmap = new Microsoft.Maps.HeatMapLayer(shapes, {
+                        radius: 10000,
+                        unit: 'meters',
+                        opacity: 0.8
                     });
-                    //Load the GeoJSON and HeatMap modules.
-                    Microsoft.Maps.loadModule(['Microsoft.Maps.GeoJson', 'Microsoft.Maps.HeatMap'], function () {
-                        Microsoft.Maps.GeoJson.readFromUrl(usgsEarthquakeUrl, function (shapes) {
-                            var heatmap = new Microsoft.Maps.HeatMapLayer(shapes, {
-                                radius: 10000,
-                                unit: 'meters',
-                                opacity: 0.8
-                            });
-                            map.layers.insert(heatmap);
-                        });
-                    });
-                }
-        </script>
-        <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AktwjWKLr_80k1fFaDgor86KDa5m0zv7sIFJnOy8d2H50CJ8tBWG-A4eKSWEMaX8' async defer></script>
-        </div>
-        </div>
-            </head>
-    <body>
-        <div id="myMap" style="width:800px;height:800px;float:left"></div>
-        <div style = "float:right">
-        <script type='text/javascript'>
-            generateResults();
-        </script>
-        </div>
+                    map.layers.insert(heatmap);
+                });
+            });
+        }
+    </script>
+    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AktwjWKLr_80k1fFaDgor86KDa5m0zv7sIFJnOy8d2H50CJ8tBWG-A4eKSWEMaX8' async defer></script>
 
-        <form id="wrapper" action="@routes.HomeController.index()" method ="">
-            <button>Back to Home</button>
-        </form>
 
-    </body>
-</html>
+
+
+    <h1>Earthquake's Heatmap Representation</h1>
+    <form action="@routes.HomeController.index()" method ="">
+        <button id="myButton">Back to Home</button>
+    </form>
+    <br>
+
+    <div class = "container">
+        <div class="result" >
+            <p id="demo"></p>
+        </div>
+        <div id="myMap">
+            <script type='text/javascript'>
+                generateResults();
+            </script>
+        </div>
+    </div>
+

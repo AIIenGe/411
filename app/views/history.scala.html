@@ -2,60 +2,73 @@
 @import java.time.LocalDate
 
 @(title: String)
-
-<!DOCTYPE html>
-<head>
-    <style>
-            html {
-                color: #FFF;
-                background-color: #40B5D0;
-            }
-            #wrapper {
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            button {
-                height: 100px;
-                width: 100px;
-                background-color: #0C3B4B;
-                border: none;
-                color: white;
-                padding: 15px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                cursor: pointer;
-                border-radius: 12px;
-            }
-            th {
-                text-align: left;
-            }
-
-            h1 {
-                color: #0C3B4B;
-            }
-
-    </style>
-</head>
-<html lang="en">
     <head>
         <style>
-            table, th, td {
-                border: 1px solid black;
-            }
-            </style>
+                html {
+                    text-align: center;
+                    background: #40B5D0;
+                }
+
+                h1 {
+                    color: #FFF;
+                }
+
+                table {
+                    border: 2px solid black;
+                    border-radius: 1em;
+                    padding: 1em;
+                    color: #fff;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+
+                /*added the border at the bottom to seperate headings from tabular data*/
+                th {
+                    text-align: center;
+                    color: #FFF;
+                    padding-right: 1em;
+                }
+
+                /*data aligned to the left which also idenifies data from headings*/
+                td {
+                    color: #FFF;
+                    text-align: left;
+                    color: black;
+                }
+
+                #myButton {
+                    background-color:#ffffff;
+                    -moz-border-radius:20px;
+                    -webkit-border-radius:20px;
+                    border-radius:20px;
+                    border:1px solid #000000;
+                    display:inline-block;
+                    cursor:pointer;
+                    color:#050505;
+                    font-family:Arial;
+                    font-size:14px;
+                    padding:4px 35px;
+                    text-decoration:none;
+                    text-align: center;
+                    position: center;
+                }
+
+                #myButton:hover {
+                    opacity:.7;
+                }
+
+        </style>
     </head>
-    <h1>Search History</h1>
-    <p id="demo"></p>
+
+        <h1 id="history-head">Search History</h1>
+        <p id="demo"></p>
+        <form action="@routes.HomeController.index()" method ="">
+            <button id="myButton">Back to Home</button>
+        </form>
 
     <script>
             var text = "";
-            text += "<table style=\"width:50%\">";
+            text += "<table>";
             text += "<tr>";
             text += "<th>Delete Button</th>";
             text += "<th>Entry Number</th>";
@@ -69,7 +82,7 @@
 
             for(i = 0; i < length; i++){
                 text += "<tr>";
-                text +=  "<td align='center'><form action=\"/delete/" + data[i].id + "\" method=\"POST\">";
+                text +=  "<td><form action=\"/delete/" + data[i].id + "\" method=\"POST\">";
 
                 text +=  "<input class=\"btn btn-warning \" type=\"submit\" value=\"Delete\"></form></td>"
                 text += "<td>" + data[i].id + "</td>";
@@ -81,8 +94,3 @@
             text += "</table>";
             document.getElementById("demo").innerHTML = text;
     </script>
-    <form id="wrapper" action="@routes.HomeController.index()" method ="">
-        <button>Back to Home</button>
-    </form>
-
-</html>
